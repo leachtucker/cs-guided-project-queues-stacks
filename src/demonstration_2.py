@@ -22,13 +22,36 @@ class Stack:
 
 class QueueTwoStacks:
     def __init__(self):
-        # Your code here
+        self.stack = Stack()
+        self.shuffleStack = Stack()
 
-        
     def enqueue(self, item):
-        # Your code here
+        # If the shuffle stack is not empty, we need to pop and push those elements back on to the original stack
+        while len(self.shuffleStack.data) > 0:
+            currItem = self.shuffleStack.pop()
+            self.stack.push(currItem)
+
+        self.stack.push(item)
 
 
     def dequeue(self):
-        # Your code here
+        # If the stack is empty, do nothing and return None
+        if len(self.stack.data) == 0:
+            return None
 
+        # pop and push items to the shuffle stack to reverse the order of the original stack (giving us a FIFO order)
+        while len(self.stack.data) > 0:
+            currItem = self.stack.pop()
+            self.shuffleStack.push(currItem)
+
+        return self.shuffleStack.pop()
+
+
+myQueue = QueueTwoStacks()
+
+myQueue.enqueue(1)
+myQueue.enqueue(2)
+myQueue.enqueue(3)
+myQueue.enqueue(4)
+
+print(myQueue.dequeue())
