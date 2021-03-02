@@ -33,24 +33,41 @@ class Stack:
         """Return the last item without removing it"""
         if not self.items:
             return None
+
         return self.items[-1]
 
 class MaxStack:
     def __init__(self):
-        # Your code here
+        self.stack = Stack()
+        self.maxNum = None
 
 
     def push(self, item):
         """Add a new item onto the top of our stack."""
         # Your code here
-
+        if self.maxNum == None or item > self.maxNum:
+            self.maxNum = item
+        self.stack.push(item)
 
     def pop(self):
         """Remove and return the top item from our stack."""
         # Your code here
+        return self.stack.pop()
 
 
     def get_max(self):
         """The last item in maxes_stack is the max item in our stack."""
         # Your code here
+        return self.maxNum
 
+myStack = MaxStack()
+
+myStack.push(101)
+myStack.push(1)
+myStack.push(3)
+myStack.push(0)
+myStack.push(0)
+myStack.push(100)
+
+
+print(myStack.get_max())
